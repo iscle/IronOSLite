@@ -1,4 +1,4 @@
-#IronOS Lite - Soldering iron firmware
+# IronOS Lite - Soldering iron firmware
 This is an alternative firmware for the $15 T12 STC8H-based soldering iron.
 
 ## Based on
