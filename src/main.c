@@ -2,22 +2,20 @@
  * T12 Soldering Iron Firmware
  * Pinout:
  * P1.0 - ADC0, VCC
- * P1.1 - ADC1, Tip temperature
- * P1.5 - PWM3N, Tip MOSFET
- * P1.6 - ADC6, 5v
- * P1.7 - ADC7, 5v
+ * P1.1 - ADC1, Tip current
+ * P1.6 - ADC6, Tip temperature
  * P2.4 - I2C SDA
  * P2.5 - I2C SCL
  * P3.0 - Left button
  * P3.1 - Center button
  * P3.2 - Right button
  * P3.3 - Shake sensor
+ * P3.4 - PWM4P, Tip MOSFET
  */
 
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-#include "stc8h3k64s2.h"
 #include "i2c.h"
 #include "wdt.h"
 #include "adc.h"
@@ -25,7 +23,7 @@
 #include "eeprom.h"
 #include "gpio.h"
 #include "oled.h"
-#include "config.h"
+#include "board.h"
 
 static const unsigned char font[] = {
     0x00, 0x00, 0x00, 0x00, 0x00,
@@ -443,13 +441,16 @@ void print(char text[])
 
 __xdata char str[256];
 uint16_t ddd = 0;
-void main(void) {
-    P_SW2 = 0x80; // Enable access to XFR
 
+void main(void) {
+    __sfr __at (0xBA) P_SW2 = 0x80; // Enable access to XFR
+
+    tip_early_init();
     wdt_init();
     timer_init();
     adc_init();
     eeprom_init();
+    pwm_init();
     tip_init();
     i2c_init();
     oled_init();
@@ -467,9 +468,8 @@ void main(void) {
         cursor_x = 0;
         cursor_y = 0;
         memset(display_buffer, 0x00, 512);
-        uint32_t vin = adc_read(0);
-        uint16_t vin_volts = (vin * (MEASURED_5V_MV / 10)) / 4095;
-        sprintf(str, "VIN: %u.%uv (%lu)\n", vin_volts / 10, vin_volts % 10, vin);
+
+        sprintf(str, "V: %uv\nT: %u\n", board_get_vin(), tip_get_temp());
         print(str);
         oled_display();
         // P34 = 1;
