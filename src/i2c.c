@@ -1,15 +1,6 @@
 #include "i2c.h"
 #include "gpio.h"
-
-#define	I2CCFG      (*(__xdata volatile unsigned char *) 0xFE80)
-#define	I2CMSCR     (*(__xdata volatile unsigned char *) 0xFE81)
-#define	I2CMSST     (*(__xdata volatile unsigned char *) 0xFE82)
-#define	I2CSLCR     (*(__xdata volatile unsigned char *) 0xFE83)
-#define	I2CSLST     (*(__xdata volatile unsigned char *) 0xFE84)
-#define	I2CSLADR    (*(__xdata volatile unsigned char *) 0xFE85)
-#define	I2CTXD      (*(__xdata volatile unsigned char *) 0xFE86)
-#define	I2CRXD      (*(__xdata volatile unsigned char *) 0xFE87)
-#define I2CMSAUX    (*(__xdata volatile unsigned char *) 0xFE88)
+#include "stc8h.h"
 
 // I2CCFG
 #define ENI2C       (1 << 7)

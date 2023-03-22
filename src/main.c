@@ -24,6 +24,14 @@
 #include "gpio.h"
 #include "oled.h"
 #include "board.h"
+#include "tip.h"
+#include "pwm.h"
+#include "stc8h.h"
+
+extern volatile uint8_t seconds;
+
+// Interrupt prototypes, required by SDCC
+void timer_isr(void) __interrupt (TIMER0_VECTOR);
 
 static const unsigned char font[] = {
     0x00, 0x00, 0x00, 0x00, 0x00,
@@ -443,7 +451,7 @@ __xdata char str[256];
 uint16_t ddd = 0;
 
 void main(void) {
-    __sfr __at (0xBA) P_SW2 = 0x80; // Enable access to XFR
+    P_SW2 |= 0x80; // Enable access to XFR
 
     tip_early_init();
     wdt_init();
@@ -468,8 +476,7 @@ void main(void) {
         cursor_x = 0;
         cursor_y = 0;
         memset(display_buffer, 0x00, 512);
-
-        sprintf(str, "V: %uv\nT: %u\n", board_get_vin(), tip_get_temp());
+        sprintf(str, "Time: %u\nV: %u\nA: %u\nT: %u\n", seconds, board_get_vin(), tip_get_current(), tip_get_temp());
         print(str);
         oled_display();
         // P34 = 1;

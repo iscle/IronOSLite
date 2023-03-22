@@ -3,7 +3,7 @@
 #include "adc.h"
 
 void tip_early_init(void) {
-    gpio_set_value(3, 4, 0);
+    P34 = 0;
     gpio_set_mode(3, 4, GPIO_MODE_PUSH_PULL);
 }
 

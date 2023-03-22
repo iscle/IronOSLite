@@ -1,10 +1,5 @@
 #include "adc.h"
-
-static __sfr __at (0xBC) ADC_CONTR;
-static __sfr __at (0xBD) ADC_RESH;
-static __sfr __at (0xBE) ADC_RESL;
-static __sfr __at (0xDE) ADCCFG;
-#define	ADCTIM (*(__xdata volatile unsigned char *) 0xFEA8)
+#include "stc8h.h"
 
 // ADC_CONTR
 #define ADC_POWER   (1 << 7)

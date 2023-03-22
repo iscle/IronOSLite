@@ -1,51 +1,5 @@
 #include "gpio.h"
-
-static __sfr __at (0x91) P1M1;
-static __sfr __at (0x92) P1M0;
-static __sfr __at (0x93) P0M1;
-static __sfr __at (0x94) P0M0;
-static __sfr __at (0x95) P2M1;
-static __sfr __at (0x96) P2M0;
-static __sfr __at (0xB1) P3M1;
-static __sfr __at (0xB2) P3M0;
-static __sfr __at (0xB3) P4M1;
-static __sfr __at (0xB4) P4M0;
-static __sfr __at (0xC9) P5M1;
-static __sfr __at (0xCA) P5M0;
-static __sfr __at (0xCB) P6M1;
-static __sfr __at (0xCC) P6M0;
-static __sfr __at (0xE1) P7M1;
-static __sfr __at (0xE2) P7M0;
-
-#define P0PU (*(__xdata volatile unsigned char *) 0xFE10)
-#define P1PU (*(__xdata volatile unsigned char *) 0xFE11)
-#define P2PU (*(__xdata volatile unsigned char *) 0xFE12)
-#define P3PU (*(__xdata volatile unsigned char *) 0xFE13)
-#define P4PU (*(__xdata volatile unsigned char *) 0xFE14)
-#define P5PU (*(__xdata volatile unsigned char *) 0xFE15)
-#define P6PU (*(__xdata volatile unsigned char *) 0xFE16)
-#define P7PU (*(__xdata volatile unsigned char *) 0xFE17)
-
-#define P0IE (*(__xdata volatile unsigned char *) 0xFE30)
-#define P1IE (*(__xdata volatile unsigned char *) 0xFE31)
-#define P2IE (*(__xdata volatile unsigned char *) 0xFE32)
-#define P3IE (*(__xdata volatile unsigned char *) 0xFE33)
-#define P4IE (*(__xdata volatile unsigned char *) 0xFE34)
-#define P5IE (*(__xdata volatile unsigned char *) 0xFE35)
-#define P6IE (*(__xdata volatile unsigned char *) 0xFE36)
-#define P7IE (*(__xdata volatile unsigned char *) 0xFE37)
-
-static __sfr __at (0x80) P0;
-static __sfr __at (0x90) P1;
-static __sfr __at (0xA0) P2;
-static __sfr __at (0xB0) P3;
-static __sfr __at (0xC0) P4;
-static __sfr __at (0xC8) P5;
-static __sfr __at (0xE8) P6;
-static __sfr __at (0xF8) P7;
-
-static __sfr __at (0xA2) P_SW1;
-static __sfr __at (0xBA) P_SW2;
+#include "stc8h.h"
 
 void gpio_set_mode(uint8_t port, uint8_t pin, uint8_t mode) {
     switch (port) {

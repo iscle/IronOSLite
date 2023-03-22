@@ -1,12 +1,5 @@
 #include "eeprom.h"
-
-static __sfr __at (0xC2) IAP_DATA;
-static __sfr __at (0xC3) IAP_ADDRH;
-static __sfr __at (0xC4) IAP_ADDRL;
-static __sfr __at (0xC5) IAP_CMD;
-static __sfr __at (0xC6) IAP_TRIG;
-static __sfr __at (0xC7) IAP_CONTR;
-static __sfr __at (0xF5) IAP_TPS;
+#include "stc8h.h"
 
 // IAP_CMD
 #define CMD_IDLE    (0)

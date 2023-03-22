@@ -1,6 +1,5 @@
 #include "wdt.h"
-
-static __sfr __at (0xC1) WDT_CONTR;
+#include "stc8h.h"
 
 #define EN_WDT (1 << 5)
 #define CLR_WDT (1 << 4)
